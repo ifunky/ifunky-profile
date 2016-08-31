@@ -1,29 +1,18 @@
-
+# Sets the system timezone.
+#
+# @param timezone Required. Hiera lookup for timezone setting
+#
+# @author Dan
 class profile::windows::timezone(
   $timezone = hiera('base::params::timezone',$base::params::timezone)
 )
 {
   include base
 
-  # WINNT  CLASS HAS BEEN REMOVED FROM THE FORGE
-  /*class {'winntp':
-    special_poll_interval    => 1800,
-    ntp_server               => '0.uk.pool.ntp.org, time.windows.com',
-    max_pos_phase_correction => 54000,
-    max_neg_phase_correction => 54000,
-  }
-  */
-
-  registry_key { 'HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation':
-    ensure => present,
-  }
-
-  registry::value { 'timezonekeyname':
-    key   => 'HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation',
-    value => TimeZoneKeyName,
-    type  => string,
-    data  => $timezone,
-    require => [ Registry_key['HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation'] ],
+  registry_value { 'HKLM\SYSTEM\CurrentControlSet\Control\TimeZoneInformation\TimeZoneKeyName':
+    ensure  => present,
+    type    => string,
+    data    => $timezone,
     notify => Exec['set_timezone'],
   }
 
