@@ -14,31 +14,6 @@ class profile::windows::web::iiscore(
   $w3c_log = 'configuration."system.applicationHost".log.centralW3CLogFile.directory'
   $site_default = 'configuration."system.applicationHost".sites.siteDefaults.logFile.directory'
 
-  file { $root_web_path:
-    ensure             => directory,
-    source_permissions => ignore
-  }
-
-  acl{ $root_web_path:
-    permissions => [
-      {identity => 'IIS_IUSRS', rights => ['read']}
-    ],
-    require => File[$root_web_path],
-
-  }
-
-  file { $web_logs_path:
-    ensure => directory,
-  }
-
-  acl{ $web_logs_path:
-    permissions => [
-      {identity => 'IIS_IUSRS', rights => ['read','write']}
-    ],
-    require => File[$web_logs_path],
-  }
-
-
   windowsfeature { 'Web-WebServer':
     ensure => present,
     installmanagementtools => true
@@ -64,6 +39,31 @@ class profile::windows::web::iiscore(
   #  ensure  => absent,
   #  require => Windowsfeature['Web-WebServer'],
   #}
+
+  file { $root_web_path:
+    ensure             => directory,
+    require            => Windowsfeature['Web-WebServer'],
+  }
+
+  acl{ $root_web_path:
+    permissions => [
+      {identity => 'IIS_IUSRS', rights => ['read']}
+    ],
+    require => File[$root_web_path],
+
+  }
+
+  file { $web_logs_path:
+    ensure  => directory,
+    require => Windowsfeature['Web-WebServer'],
+  }
+
+  acl{ $web_logs_path:
+    permissions => [
+      {identity => 'IIS_IUSRS', rights => ['read','write']}
+    ],
+    require => File[$web_logs_path],
+  }
 
   exec { 'Update Server Default LogPath' :
     command  => "\$xml = ${p_xml}; \$xml.${w3c_log} = '${web_logs_path}'; \$xml.save('${application_host_config}')",
