@@ -34,11 +34,23 @@ class profile::windows::web::iiscore(
     require => Windowsfeature['Web-WebServer'],
   }
 
-  #iis::manage_site {'Default Web Site':
-  #  site_name => "Default Web Site",
-  #  ensure  => absent,
-  #  require => Windowsfeature['Web-WebServer'],
-  #}
+  iis::manage_site {'Default Web Site':
+    site_name => "Default Web Site",
+    ensure  => absent,
+    require => Windowsfeature['Web-WebServer'],
+  }
+
+  iis::manage_app_pool { '.NET v4.5':
+    ensure           => absent,
+  }
+
+  iis::manage_app_pool { '.NET v4.5 Classic':
+    ensure           => absent,
+  }
+
+  iis::manage_app_pool { 'DefaultAppPool':
+    ensure           => absent,
+  }
 
   file { $root_web_path:
     ensure             => directory,
