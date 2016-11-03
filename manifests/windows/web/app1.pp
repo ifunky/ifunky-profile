@@ -3,7 +3,7 @@
 # @author Dan
 class profile::windows::web::app1 {
 
-  $web_resources = 'd:\\WebResources\\EGI\\TownReports'
+  $web_resources = [ 'd:\\WebResources', 'd:\\WebResources\\EGI', 'd:\\WebResources\\EGI\\TownReports' ]
 
   windowsfeature { [ 'NET-WCF-HTTP-Activation45' ]:
     ensure  => present,
