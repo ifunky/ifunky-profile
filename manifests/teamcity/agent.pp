@@ -5,7 +5,7 @@ class profile::teamcity::agent (
 ) {
 
   class { 'teamcity::agent':
-    teamcity_server_url => $server_url
+    server_url => $server_url
   }
 
 }
