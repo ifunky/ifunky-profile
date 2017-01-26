@@ -2,7 +2,7 @@
 #
 # @author Dan
 class profile::windows::software::chrome (
-  $version = '55.0.2883.87'
+  $version = '56.0.2924.76'
 )
 {
 
