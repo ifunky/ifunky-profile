@@ -6,7 +6,7 @@
 class profile::windows::software::dotnet452developerpack ()
 {
 
-  package { 'googlecnetfx-4.5.2-devpack':
+  package { 'netfx-4.5.2-devpack':
     ensure          => 'latest',
     provider        => 'chocolatey',
   }
