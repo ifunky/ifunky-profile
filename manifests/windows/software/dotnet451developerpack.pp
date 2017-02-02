@@ -7,7 +7,7 @@ class profile::windows::software::dotnet451developerpack ()
 {
 
   package { 'netfx-4.5.1-devpack':
-    ensure          => installed,
-    provider        => 'chocolatey',
+    ensure   => latest,
+    provider => 'chocolatey',
   }
 }
