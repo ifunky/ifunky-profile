@@ -3,7 +3,7 @@
 # You need to download the web installer instead of this package if you intend to redistribute .NET Framework 4.5.2.
 #
 # @author Dan
-class profile::windows::software::dottnet452developerpack ()
+class profile::windows::software::dotnet452developerpack ()
 {
 
   package { 'googlecnetfx-4.5.2-devpack':
