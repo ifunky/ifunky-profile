@@ -4,7 +4,7 @@
 #
 # @author Dan
 class profile::windows::software::nsclient (
-  $allowed_hosts = '*',
+  $allowed_hosts = ['*'],
   $proxy_server  = hiera('base::proxy_server',''))
 {
 
