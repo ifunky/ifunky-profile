@@ -10,20 +10,22 @@ class profile::windows::software::filebeat ()
         'hosts' => [
           'http://elasticsearch.logging.pra.rbxd.ds:80/elastic/',
         ],
-        'index'       => 'packetbeat',
-        'cas'         => [
-          '/etc/pki/root/ca.pem',
-        ],
       },
     },
+    logging => {
+      'level'     => error,
+      'to_files'  => true,
+      'to_syslog' => false,
+    },
+
   }
 
-  class { 'filebeat::prospector':
+  filebeat::prospector { 'log':
     paths    => [
-      'D:\RBI Application Logs\EG Exporter\WindowService\*.log',
-      'D:\RBI Application Logs\EG Exporter\ConsoleApp\*.log',
+      'D:\RBILogs\*.log',
     ],
     doc_type => 'log',
+    fields   => {"applicationName" => elastic-search-loader}
   }
 
 }
