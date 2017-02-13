@@ -9,7 +9,6 @@ class profile::windows::software::filebeat (
 )
 {
 
-  validate_absolute_path($log_path, "ERROR: log_path must be a valid path")
   if empty($application_name) {
     fail("You must supply an applicaiton name")
   }
