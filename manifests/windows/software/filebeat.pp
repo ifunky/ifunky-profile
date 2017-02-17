@@ -15,7 +15,7 @@ class profile::windows::software::filebeat (
 
   class { 'filebeat':
     major_version => 5,
-    conf_template => '$filebeat/filebeat5.yml.erb',
+    conf_template => 'filebeat/filebeat5.yml.erb',
     outputs => {
       'elasticsearch' => {
         'hosts' => [
