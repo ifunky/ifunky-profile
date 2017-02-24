@@ -8,11 +8,15 @@ class profile::windows::software::winlogbeat (
 {
 
   class { 'winlogbeat':
-    outputs => {
+    outputs    => {
       'elasticsearch' => {
         'hosts'       => [ $elasticsearch_server],
-        'index'       => 'winlogbeat',
       },
     },
+    event_logs => {
+      'Application' => { 'ignore_older' => '72h', 'include_xml' => 'true' },
+      'Security'    => { 'ignore_older' => '72h', 'include_xml' => 'true' },
+      'System'      => { 'ignore_older' => '72h', 'include_xml' => 'true' },
+    }
   }
 }
