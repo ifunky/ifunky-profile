@@ -17,6 +17,7 @@ class profile::windows::software::winlogbeat (
       'Application' => { 'ignore_older' => '72h', 'include_xml' => 'true' },
       'Security'    => { 'ignore_older' => '72h', 'include_xml' => 'true' },
       'System'      => { 'ignore_older' => '72h', 'include_xml' => 'true' },
-    }
+    },
+    proxy_address => $proxy_server
   }
 }
