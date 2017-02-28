@@ -1,4 +1,4 @@
-5# Installs Metricbeat (https://www.elastic.co/products/beats/metricbeat)
+# Installs Metricbeat (https://www.elastic.co/products/beats/metricbeat)
 #
 # @author Dan
 class profile::windows::software::metricbeat (
