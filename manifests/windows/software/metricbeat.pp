@@ -8,7 +8,18 @@ class profile::windows::software::metricbeat (
 {
 
   class { 'metricbeat':
+    modules => {
+      'system' => {
+        'metricsets' => ['cpu', 'core', 'diskio', 'filesystem', 'fsstat', 'memory', 'network', 'process'],
+        'enabled'    => 'true',
+        'period'     => '10s',
+      },
+    },
+    outputs => {
+      'elasticsearch' => {
+        'hosts' => [ $elasticsearch_server ],
+      }
+    },
     proxy_address => $proxy_server
   }
-
 }
